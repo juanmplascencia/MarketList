@@ -4,7 +4,7 @@ let User = mongoose.model('users');
 
 module.exports = {
     index: function(req, res){
-        Item.find({}).populate('user').exec(function(err, items){
+        Item.find({}).populate('users').exec(function(err, items){
             if(err){
                 return res.json(err);
             }

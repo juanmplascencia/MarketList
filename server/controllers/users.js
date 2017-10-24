@@ -30,7 +30,7 @@ module.exports = {
         })
     },
     show: function(req, res){
-        User.findById(req.params.id).populate('bikes').exec(function(err, user){
+        User.findById(req.params.id).populate('items').exec(function(err, user){
             if(err){
                 return res.json(err);
             }
