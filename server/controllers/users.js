@@ -3,6 +3,7 @@ var User = mongoose.model('users');
 var path = require('path');
 
 module.exports = {
+    //Retrieve all Users in our db
     showAll: (req,res,next) => {
         User.find({}, (err, result) => {
             if(err) { 
@@ -12,6 +13,7 @@ module.exports = {
             }
         });
     },
+    //Create a new User
     create: (req,res,next) => {
         var user = new User(req.body);
         user.save((err, result) => {
@@ -22,6 +24,7 @@ module.exports = {
             }
         });
     },
+    //Remove User from db
     remove: (req,res,next) => {
         User.remove({_id: req.params.id}, (err, result) => {
             if(err) { 
@@ -31,6 +34,7 @@ module.exports = {
             }
         });
     },
+    //Update a users info
     update: (req, res) => {
         User.findOne({_id: req.params.id}, (err, result) => {
             if(result){
