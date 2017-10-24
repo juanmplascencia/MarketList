@@ -1,54 +1,64 @@
-var mongoose = require('mongoose');
-var User = mongoose.model('users');
-var path = require('path');
+let mongoose = require('mongoose');
+let User = mongoose.model('users');
+let path = require('path');
 
 module.exports = {
-    showAll: (req,res,next) => {
-        User.find({}, (err, result) => {
-            if(err) { 
-                res.json(err);
-            } else {
-                res.json(results);
-            }
-        });
+    session: function(req, res){
+        if(req.session.user_id){
+            return res.json({
+                status: true,
+                user_id: req.session.user_id
+            })
+        }
+        return res.json({ status: false })
     },
-    create: (req,res,next) => {
-        var user = new User(req.body);
-        user.save((err, result) => {
-            if(err) { 
-                res.json(err);
-            } else {
-                res.json(result);
+    index: function(req, res){
+        User.find({}, function(err, users){
+            if(err){
+                return res.json(err);
             }
-        });
+            return res.json(users);
+        })
     },
-    remove: (req,res,next) => {
-        User.remove({_id: req.params.id}, (err, result) => {
-            if(err) { 
-                res.json(err);
-            } else {
-                res.json({message:"Delete Success"});
+    create: function(req, res){
+        User.create(req.body, function(err, user){
+            if(err){
+                return res.json(err);
             }
-        });
+            req.session.user_id = user._id;
+            return res.json(user);
+        })
     },
-    update: (req, res) => {
-        User.findOne({_id: req.params.id}, (err, result) => {
-            if(result){
-                for(let val in req.body){
-                    result[val] = req.body[val];
+    show: function(req, res){
+        User.findById(req.params.id).populate('bikes').exec(function(err, user){
+            if(err){
+                return res.json(err);
+            }
+            return res.json(user);
+        })
+    },
+    authenticate: function(req, res){
+        User.findOne({ email: req.body.email }, function(err, user){
+            if(err){
+                return res.json(err);
+            }
+            if(user && user.authenticate(req.body.password)){
+                req.session.user_id = user._id;
+                return res.json(user);
+            }
+            return res.json({
+                errors: {
+                    login: {
+                        message: 'Invalid credentials'
+                    }
                 }
-                result.save((err,result) => {
-                    if(err){
-                        res.json(err)
-                    }
-                    else{
-                        res.json(result)
-                    }
-                })
-            }
-            else{
-                res.json(err)
-            }
-        });
+            })
+        })
+    },
+    logout: function(req, res){
+        if(req.session.user_id){
+            delete req.session.user_id
+        }
+        return res.json({ status: true })
     }
 }
