@@ -7,6 +7,8 @@ module.exports = function(app) {
     app.get('/users',Users.index);
     //route to create a user
     app.post('/users',Users.create);
+    //route to retrieve a user
+    app.post('/users/:id',Users.show);
     //route to delete a user
     app.delete('/users/:id', Users.remove);
     //route to update a user
