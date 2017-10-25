@@ -3,6 +3,10 @@ let User = mongoose.model('users');
 let path = require('path');
 
 module.exports = {
+    // This method finds the user in the database and if they exist, then
+    // it'll log them in and store the name in session
+    // If they don't exist, it'll create a new user in the database and then
+    // save their name in session
     login: function (req, res) {
         User.findOne({name: req.body.name}, (err, user) => {
 			if(err){
@@ -27,11 +31,11 @@ module.exports = {
 			}
 		})
     },
-    // This method finds the user in the database and if they exist, then
-    // it'll log them in and store the name in session
-    // If they don't exist, it'll create a new user in the database and then
-    // save their name in session
 
+    // This method is only run after the user is logged in.
+    // Thus the name is already stored in session
+    // So, this method just grabs the name from session to be
+    // used in our front end
     session: function (req, res) {
 		if(req.session.user){
 			return res.json(req.session.user);
@@ -40,11 +44,7 @@ module.exports = {
 			return res.status(500).json("Not logged in")
 		}
 	},
-    // This method is only run after the user is logged in.
-    // Thus the name is already stored in session
-    // So, this method just grabs the name from session to be
-    // used in our front end
-
+    // This method grabs all the polls and sends them off
     index: function(req, res){
         User.find({}, function(err, users){
             if(err){
@@ -53,8 +53,7 @@ module.exports = {
             return res.json(users);
         })
     },
-    // This method grabs all the polls and sends them off
-
+    //this method creates a new User
     create: function(req, res){
         User.create(req.body, function(err, user){
             if(err){
@@ -64,7 +63,7 @@ module.exports = {
             return res.json(user);
         })
     },
-
+    //this method retrieves one user 
     show: function(req, res){
         User.findById(req.params.id).populate('items').exec(function(err, user){
             if(err){
@@ -73,7 +72,7 @@ module.exports = {
             return res.json(user);
         })
     },
-
+    //method to authenticate users credentials
     authenticate: function(req, res){
         User.findOne({ email: req.body.email }, function(err, user){
             if(err){
@@ -92,7 +91,7 @@ module.exports = {
             })
         })
     },
-
+    // this method logs out current user
     logout: function(req, res){
         if(req.session.user_id){
             delete req.session.user_id
