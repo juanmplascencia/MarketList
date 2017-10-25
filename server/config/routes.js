@@ -10,7 +10,7 @@ module.exports = function(app) {
     //route to retrieve a user
     app.post('/users/:id',Users.show);
     //route to update a user
-    app.put('/users/:id', Users.update);
+    app.path('/users/:id', Users.update);
     //route to get user from session
     app.get('/session', Users.session);
     //route to add user to session
