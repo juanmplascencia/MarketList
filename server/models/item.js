@@ -19,4 +19,4 @@ let ItemSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-mongoose.model('item', BikeSchema);
+mongoose.model('item', ItemSchema);

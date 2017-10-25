@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
     first_name: { type: String },
     last_name: { type: String },
     user_name: { type: String },
-    email: { type: String, unique = true },
+    email: { type: String, unique: true },
     password: { type: String },
     itmes: [{
         type: mongoose.Schema.Types.ObjectId,
