@@ -16,20 +16,7 @@ module.exports = {
 				req.session.user = user
 				res.json({user: user})
 			}
-			else{
-				let user = new User(req.body);
-				user.save((err) => {
-					if(err){
-						return res.status(401).json(err);
-					}
-					else{
-						console.log(`${user} has been saved`)
-						req.session.user = user;
-						res.json({user: user});
-					}
-				})
-			}
-		})
+		});
     },
 
     // This method is only run after the user is logged in.
@@ -43,35 +30,8 @@ module.exports = {
 		else{
 			return res.status(500).json("Not logged in")
 		}
-	},
-    // This method grabs all the polls and sends them off
-    index: function(req, res){
-        User.find({}, function(err, users){
-            if(err){
-                return res.json(err);
-            }
-            return res.json(users);
-        })
     },
-    //this method creates a new User
-    create: function(req, res){
-        User.create(req.body, function(err, user){
-            if(err){
-                return res.json(err);
-            }
-            req.session.user_id = user._id;
-            return res.json(user);
-        })
-    },
-    //this method retrieves one user 
-    show: function(req, res){
-        User.findById(req.params.id).populate('items').exec(function(err, user){
-            if(err){
-                return res.json(err);
-            }
-            return res.json(user);
-        })
-    },
+    
     //method to authenticate users credentials
     authenticate: function(req, res){
         User.findOne({ email: req.body.email }, function(err, user){
@@ -91,11 +51,44 @@ module.exports = {
             })
         })
     },
+
     // this method logs out current user
     logout: function(req, res){
         if(req.session.user_id){
             delete req.session.user_id
         }
         return res.json({ status: true })
+    },
+
+    // This method grabs all the polls and sends them off
+    index: function(req, res){
+        User.find({}, function(err, users){
+            if(err){
+                return res.json(err);
+            }
+            return res.json(users);
+        })
+    },
+
+    //this method creates a new User
+    create: function(req, res){
+        User.create(req.body, function(err, user){
+            if(err){
+                return res.json(err);
+            }
+            req.session.user_id = user._id;
+            return res.json(user);
+        })
+    },
+
+    //this method retrieves one user 
+    show: function(req, res){
+        User.findById(req.params.id).populate('items').exec(function(err, user){
+            if(err){
+                return res.json(err);
+            }
+            return res.json(user);
+        });
     }
+    
 }

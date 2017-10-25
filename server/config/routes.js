@@ -17,6 +17,8 @@ module.exports = function(app) {
     app.get('/session', Users.session);
     //route to add user to session
     app.post('/session', Users.authenticate);
+    //route to logout user
+    app.delete('/session', Users.logout);
     //route to retrieve all items
     app.get('/items', Items.index);
     //route to create an item
