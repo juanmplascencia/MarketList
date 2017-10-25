@@ -9,10 +9,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   @Output() createUserEvent = new EventEmitter;
-  loginUser = {};
-  newUser = {};
-  registrationErrors = [];
-  loginErrors = [];
+
+  private loginUser = {};
+  private newUser = {};
 
   constructor(
     private _userService: UserService,
@@ -24,41 +23,23 @@ export class LoginComponent implements OnInit {
 
   login(loginUser) {
     console.log(loginUser);
-    return this._userService.authenticate(loginUser)
+    this._userService.authenticate(loginUser)
     .then(user => {
       console.log(user);
-      if (user.errors) {
-        console.log('here');
-        for (let key in user.errors) {
-          let error = user.errors[key];
-          this.loginErrors.push(error.message);
-          console.log(this.loginErrors);
-        }
-      } else {
           this._userService.storeCurrentUser(user);
           this._router.navigateByUrl('/dashboard');
-      }
      })
-    .catch(err => { console.log(err);
+    .catch(err => { console.warn(err);
     });
   }
 
   createUser(newUser) {
-    console.log(newUser);
-    return this._userService.create(newUser)
+    this._userService.create(newUser)
     .then(user => {
-      console.log(user);
-      if (user.errors) {
-        for (let key in user.errors) {
-          let error = user.errors[key];
-          this.registrationErrors.push(error.message);
-        }
-      } else {
         this._userService.storeCurrentUser(user);
         this._router.navigateByUrl('/dashboard');
-      }
     })
-    .catch(err => { console.log(err);
+    .catch(err => { console.warn(err);
     });
   }
 }

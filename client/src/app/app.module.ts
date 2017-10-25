@@ -26,6 +26,8 @@ import { ItemService } from './item.service';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    FormsModule,
     AppRoutingModule
   ],
   providers: [UserService, ItemService],

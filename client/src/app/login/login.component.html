@@ -2,14 +2,16 @@
   <h3>Login</h3>
   <form (submit)="login(loginUser); loginForm.reset()" #loginForm="ngForm">
     <div>
-      <label>Email</label>
+      <p>Email
       <input type="text" name="email" [(ngModel)]="loginUser.email">
+      </p>
     </div>
     <div>
-      <label>Password</label>
+      <p>Password
       <input type="text" name="password" [(ngModel)]="loginUser.password">
+      </p>
     </div>
-    <input type="submit" value="Login">
+    <button type="submit" name="submit" [disabled] = "loginForm.invalid">Submit</button>
   </form>
   <p *ngFor="let error of loginErrors">{{ error }}</p>
 </div>
@@ -17,22 +19,65 @@
   <h3>Register</h3>
   <form (submit)="createUser(newUser); registerForm.reset()" #registerForm="ngForm">
     <div>
-      <label>Name</label>
-      <input type="text" name="name" [(ngModel)]="newUser.name">
+      <p>First Name:
+        <input type="text" name="firstName" [(ngModel)]="newUser.firstName"
+        required
+        minlength="2"
+        #firstName="ngModel">
+        <span *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+            <span *ngIf="firstName.errors.required">First name is required.</span>
+            <span *ngIf="firstName.errors.minlength">Name must be at least 2 characters long.</span>
+        </span>
+      </p>
     </div>
     <div>
-      <label>Email</label>
-      <input type="text" name="email" [(ngModel)]="newUser.email">
+      <p>Last Name:
+        <input type="text" name="lastName" [(ngModel)]="newUser.lastName"
+        required
+        minlength="2"
+        #lastName="ngModel">
+        <span *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+            <span *ngIf="lastName.errors.required">Last name is required.</span>
+            <span *ngIf="lastName.errors.minlength">Name must be at least 2 characters long.</span>
+        </span>
+      </p>
     </div>
     <div>
-      <label>Password</label>
-      <input type="password" name="password" [(ngModel)]="newUser.password">
+      <p>Email:
+        <input type="email" name="email" [(ngModel)]="newUser.email"
+        required
+        email
+        #email="ngModel">
+        <span *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors.required">Email name is required.</span>
+            <span *ngIf="email.errors.email">Email must be volid.</span>
+        </span>
+      </p>
     </div>
     <div>
-      <label>Confirm PW</label>
-      <input type="password" name="password_confirmation" [(ngModel)]="newUser.password_confirmation">
+      <p>Password:
+        <input type="password" name="password" [(ngModel)]="newUser.password"
+        required
+        minlength="8"
+        maxlength="24"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,24}"
+        #password="ngModel">
+        <span *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors.required">Password name is required.</span>
+            <span *ngIf="password.errors.pattern">Password must be at least 8 characters long, contain 1 capital, 1 munber and a special character</span>  
+        </span>
+      </p>
     </div>
-    <input type="submit" value="Register">
-    <p [ngStyle]="{'color':'red'}" *ngFor="let error of registrationErrors">{{ error }}</p>
+    <div>
+      <p>Confirm Password:
+        <input type="password" name="confirm" [(ngModel)]="newUser.confirm"
+        required
+        #confirm="ngModel">
+        <span *ngIf="newUser.password != newUser.confirm && (confirm.dirty || confirm.touched)">
+            Confirm password need to match the password. 
+        </span>
+      </p>
+    </div>
+    <button type="submit" name="submit" [disabled] = "registerForm.invalid">Submit</button>
   </form>
 </div>
