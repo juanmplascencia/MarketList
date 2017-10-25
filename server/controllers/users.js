@@ -5,8 +5,6 @@ let path = require('path');
 module.exports = {
     // This method finds the user in the database and if they exist, then
     // it'll log them in and store the name in session
-    // If they don't exist, it'll create a new user in the database and then
-    // save their name in session
     login: function (req, res) {
         User.findOne({name: req.body.name}, (err, user) => {
 			if(err){
@@ -21,8 +19,6 @@ module.exports = {
 
     // This method is only run after the user is logged in.
     // Thus the name is already stored in session
-    // So, this method just grabs the name from session to be
-    // used in our front end
     session: function (req, res) {
 		if(req.session.user){
 			return res.json(req.session.user);
