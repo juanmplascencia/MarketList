@@ -8,7 +8,9 @@ module.exports = function(app) {
     //route to create a user
     app.post('/users',Users.create);
     //route to retrieve a user
-    app.post('/users/:id',Users.show);
+    app.get('/users/:id',Users.show);
+    //route to logout user
+    app.delete('/users/:id', Users.logout);
     //route to get user from session
     app.get('/session', Users.session);
     //route to add user to session

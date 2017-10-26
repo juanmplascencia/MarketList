@@ -34,7 +34,6 @@ export class UserService {
   }
 
   authenticate(loginUser) {
-    console.log(loginUser);
     return this._http.post('/session', loginUser)
     .map(data => data.json())
     .toPromise();

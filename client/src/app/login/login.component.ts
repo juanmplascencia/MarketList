@@ -22,10 +22,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(loginUser) {
-    console.log(loginUser);
     this._userService.authenticate(loginUser)
     .then(user => {
-      console.log(user);
           this._userService.storeCurrentUser(user);
           this._router.navigateByUrl('/dashboard');
      })

@@ -30,10 +30,11 @@ export class ListingsComponent implements OnInit {
 
   setCurrentUser() {
     this.currentUser = this._userService.getCurrentUser();
+    console.log(this.currentUser);
   }
 
   destroyItem(id: string, idx) {
-    return this._itemService.destroyItem(id)
+    this._itemService.destroyItem(id)
     .then(item => {
       this.currentUser.items.splice(idx, 1);
     })
@@ -48,7 +49,7 @@ export class ListingsComponent implements OnInit {
   }
 
   updateItem(item) {
-    return this._itemService.updateItem(item)
+    this._itemService.updateItem(item)
     .then(item => {
       console.log(item);
     })
@@ -59,17 +60,10 @@ export class ListingsComponent implements OnInit {
 
   createItem(newItem) {
     newItem.user = this.currentUser._id;
-    return this._itemService.createItem(newItem)
+    this._itemService.createItem(newItem)
     .then(item => {
-      if (item.errors) {
-        // tslint:disable-next-line:forin
-        for (let key in item.errors) {
-        let error = item.errors[key];
-        this.itemErrors.push(error.message);
-        }
-      } else {
+      console.log(this.currentUser, 'whaaaat??');
         this.currentUser.items.push(item);
-      }
     })
     .catch(err => {
       console.log(err);
