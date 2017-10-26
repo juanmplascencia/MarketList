@@ -17,8 +17,8 @@
       </p>
     </div>
     <input type="submit" name="submit" [disabled] = "loginForm.invalid">
+    <span *ngFor="let error of loginErrors">{{ error }}</span>
   </form>
-  <p *ngFor="let error of loginErrors">{{ error }}</p>
 </div>
 <div class="form-style-5">
   <h3>Register</h3>
