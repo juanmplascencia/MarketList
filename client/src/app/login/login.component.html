@@ -1,4 +1,4 @@
-<div>
+<div class="form-style-5">
   <h3>Login</h3>
   <form (submit)="login(loginUser); loginForm.reset()" #loginForm="ngForm">
     <div>
@@ -16,11 +16,11 @@
       required>
       </p>
     </div>
-    <button type="submit" name="submit" [disabled] = "loginForm.invalid">Submit</button>
+    <input type="submit" name="submit" [disabled] = "loginForm.invalid">
   </form>
   <p *ngFor="let error of loginErrors">{{ error }}</p>
 </div>
-<div>
+<div class="form-style-5">
   <h3>Register</h3>
   <form (submit)="createUser(newUser); registerForm.reset()" #registerForm="ngForm">
     <div>
@@ -83,6 +83,6 @@
         </span>
       </p>
     </div>
-    <button type="submit" name="submit" [disabled] = "registerForm.invalid">Submit</button>
+    <input type="submit" name="submit" [disabled] = "registerForm.invalid">
   </form>
 </div>
