@@ -3,12 +3,17 @@
   <form (submit)="login(loginUser); loginForm.reset()" #loginForm="ngForm">
     <div>
       <p>Email
-      <input type="text" name="email" [(ngModel)]="loginUser.email">
+      <input type="text" name="email" [(ngModel)]="loginUser.email"
+      required>
+        <span *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors.required">Email is required.</span>
+        </span>
       </p>
     </div>
     <div>
       <p>Password
-      <input type="text" name="password" [(ngModel)]="loginUser.password">
+      <input type="password" name="password" [(ngModel)]="loginUser.password"
+      required>
       </p>
     </div>
     <button type="submit" name="submit" [disabled] = "loginForm.invalid">Submit</button>
