@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   private loginUser = {};
   private newUser = {};
+  loginErrors = [];
 
   constructor(
     private _userService: UserService,
@@ -24,8 +25,14 @@ export class LoginComponent implements OnInit {
   login(loginUser) {
     this._userService.authenticate(loginUser)
     .then(user => {
-          this._userService.storeCurrentUser(user);
-          this._router.navigateByUrl('/dashboard');
+          if(user.errors){
+            this.loginErrors.push(user.errors.login.message);
+          }
+          else {
+            this._userService.storeCurrentUser(user);
+            this._router.navigateByUrl('/dashboard');
+          }
+
      })
     .catch(err => { console.warn(err);
     });
