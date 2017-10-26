@@ -5,7 +5,7 @@ let User = mongoose.model('users');
 module.exports = {
     //method that retrieves all items
     index: function(req, res){
-        Item.find({}).populate('users').exec(function(err, items){
+        Item.find({}).populate('user').exec(function(err, items){
             if(err){
                 return res.json(err);
             }

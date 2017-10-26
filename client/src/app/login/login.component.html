@@ -25,7 +25,7 @@
   <form (submit)="createUser(newUser); registerForm.reset()" #registerForm="ngForm">
     <div>
       <p>First Name:
-        <input type="text" name="firstName" [(ngModel)]="newUser.firstName"
+        <input type="text" name="firstName" [(ngModel)]="newUser.first_name"
         required
         minlength="2"
         #firstName="ngModel">
@@ -37,7 +37,7 @@
     </div>
     <div>
       <p>Last Name:
-        <input type="text" name="lastName" [(ngModel)]="newUser.lastName"
+        <input type="text" name="lastName" [(ngModel)]="newUser.last_name"
         required
         minlength="2"
         #lastName="ngModel">

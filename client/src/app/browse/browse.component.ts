@@ -23,6 +23,7 @@ export class BrowseComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(this.items);
   }
 
   getItems() {
@@ -47,9 +48,9 @@ export class BrowseComponent implements OnInit {
     this.items[idx].display = false;
   }
 
-  destroyBike(id: string, idx) {
+  destroyItem(id: string, idx) {
     return this._itemService.destroyItem(id)
-    .then(bike => {
+    .then(item => {
       this.items.splice(idx, 1);
     })
     .catch(err => {
