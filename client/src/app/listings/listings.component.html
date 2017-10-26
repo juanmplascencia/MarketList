@@ -4,7 +4,7 @@
   <a [routerLink]="['/']" (click)="logout()" class="inline">Log Off</a>
 </div>
 <div class="form-style-5">
-  <h3>New Item</h3>
+  <h1>Create New Item</h1>
   <form (submit)="createItem(newItem)" #itemForm="ngForm">
     <div>
       <p>Title
@@ -30,7 +30,7 @@
   </form>
 </div>
 <div class="form-style-5">
-  <h3>My Listings</h3>
+  <h1>My Listings</h1>
   <div *ngFor="let item of currentUser.items; let idx = index">
     <form (submit)="updateItem(item)">
       <div>
