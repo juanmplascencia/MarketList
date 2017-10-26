@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { ListingsComponent } from './listings/listings.component';
 import { BrowseComponent } from './browse/browse.component';
@@ -19,7 +18,6 @@ import { ItemService } from './item.service';
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     LoginComponent,
     ListingsComponent,
     BrowseComponent
