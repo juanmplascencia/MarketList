@@ -1,7 +1,7 @@
 <div>
     <a [routerLink]="['/dashboard']">Browse</a>
     <a [routerLink]="['/my_listings']">My Listings</a>
-    <a [routerLink]="['/']" (click)="logout()" class="inline">Log Off</a>
+    <a [routerLink]="['/']" (click)="logout()">Log Off</a>
 </div>
 <div *ngFor="let item of items; let idx = index">
   <p>Title: 
