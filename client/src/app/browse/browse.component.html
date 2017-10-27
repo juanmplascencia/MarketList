@@ -5,15 +5,22 @@
       <a [routerLink]="['/']" (click)="logout()" class="inline">Log Off</a>
   </div>
 </div>
-<div *ngFor="let item of items; let idx = index" class="form-style-5">
-  <p>Title: 
-    {{ item.title }}</p>
-  <p>Description: 
-    {{ item.description }}</p>
-  <p>Price: 
-    ${{ item.price }}</p>
-  <p>Location: 
-    {{ item.location }}</p>
+<div class="form-style-5">
+      <input type="text" [(ngModel)]="searchText" placeholder="Search Item">
+</div>
+<span *ngFor="let error of item_error">{{ error }}</span>
+<div *ngFor="let item of items | filter : searchText; let idx = index" class="form-style-5">
+  <div>
+    <img [src]="item.url" *ngIf="item.url" (error)="item.url = default">
+    <img [src]="default" *ngIf="!item.url">
+    <div class='browse_display'>
+      <p>Title: {{ item.title }}</p>
+      <p>Description: {{ item.description }}</p>
+      <p>Location: {{ item.location }}</p>
+      <p>Price: ${{ item.price }}</p>
+      <span *ngFor="let error of destroy_error">{{ error }}</span>
+    </div> 
+  </div>
   <input type="submit" value="Delete" *ngIf="item.user._id == currentUser._id" (click)="destroyItem(item._id, idx)">
   <input type="submit" value="Email me" *ngIf="item.user._id != currentUser._id" (click)="alertUserInfo(idx)">
   <input type="submit" value="Text me" *ngIf="item.user._id != currentUser._id" (click)="textUserInfo(item.user.phone)">

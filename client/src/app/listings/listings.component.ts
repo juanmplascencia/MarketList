@@ -30,7 +30,6 @@ export class ListingsComponent implements OnInit {
 
   setCurrentUser() {
     this.currentUser = this._userService.getCurrentUser();
-    console.log(this.currentUser);
   }
 
   destroyItem(id: string, idx) {
@@ -51,7 +50,7 @@ export class ListingsComponent implements OnInit {
   updateItem(item) {
     this._itemService.updateItem(item)
     .then(item => {
-      console.log(item);
+      this._router.navigateByUrl('dashboard');
     })
     .catch(err => {
       console.log(err);
@@ -62,8 +61,8 @@ export class ListingsComponent implements OnInit {
     newItem.user = this.currentUser._id;
     this._itemService.createItem(newItem)
     .then(item => {
-      console.log(this.currentUser, 'whaaaat??');
-        this.currentUser.items.push(item);
+      this.currentUser.items.push(item);
+      this._router.navigateByUrl('dashboard');
     })
     .catch(err => {
       console.log(err);
