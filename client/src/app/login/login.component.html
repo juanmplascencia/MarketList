@@ -60,18 +60,18 @@
       </p>
     </div>
     <div>
-        <p>Phone:
-          <input type="text" name="phone" [(ngModel)]="newUser.phone"
-          required
-          minlength="2"
-          #phone="ngModel">
-          <span *ngIf="phone.invalid && (phone.dirty || phone.touched)">
-              <span *ngIf="phone.errors.required">Phone is required.</span>
-              <span *ngIf="phone.errors.minlength">Phone must be at least 2 characters long.</span>
-          </span>
-        </p>
-      </div>
-      <div>
+      <p>Phone:
+        <input type="text" name="phone" [(ngModel)]="newUser.phone"
+        required
+        minlength="2"
+        #phone="ngModel">
+        <span *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+            <span *ngIf="phone.errors.required">Phone is required.</span>
+            <span *ngIf="phone.errors.minlength">Phone must be at least 2 characters long.</span>
+        </span>
+      </p>
+    </div>
+    <div>
       <p>Password:
         <input type="password" name="password" [(ngModel)]="newUser.password"
         required

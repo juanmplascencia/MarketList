@@ -66,6 +66,9 @@ module.exports = {
             to: '+1'+req.params.id,  // Text this number
             from: '+14154172533' // From a valid Twilio number
         })
-        .then(message => res.json(message.sid));
+        .then(message => {
+            console.log("huiuiui");
+            res.json(message.sid);
+        });
     }
 }
