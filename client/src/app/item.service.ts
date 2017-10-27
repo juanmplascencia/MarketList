@@ -26,7 +26,6 @@ export class ItemService {
   }
 
   createItem(newItem) {
-    console.log(newItem);
     return this._http.post('/items', newItem)
     .map(data => data.json())
     .toPromise();

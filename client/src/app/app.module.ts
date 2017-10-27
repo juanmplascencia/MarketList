@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { FilterPipe } from './filter.pipe';
 
 // Components
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { ListingsComponent } from './listings/listings.component';
 import { BrowseComponent } from './browse/browse.component';
@@ -16,13 +16,14 @@ import { BrowseComponent } from './browse/browse.component';
 import { UserService } from './user.service';
 import { ItemService } from './item.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     LoginComponent,
     ListingsComponent,
-    BrowseComponent
+    BrowseComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

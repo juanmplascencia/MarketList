@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../item.service';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
   selector: 'app-browse',
@@ -11,8 +11,14 @@ import { Router } from '@angular/router';
 })
 export class BrowseComponent implements OnInit {
 
-  items: any[] = [];
-  currentUser = {};
+  private items: any[] = [];
+  private currentUser = {};
+  private item_error = [];
+  private destroy_error = [];
+  private default = "https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
+  private input = {
+    key: ''
+  };
 
   constructor(
     private _itemService: ItemService,
@@ -23,20 +29,18 @@ export class BrowseComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.items);
   }
 
   getItems() {
-    return this._itemService.getItems()
+    this._itemService.getItems()
     .then(data => {
-      console.log(data);
       this.items = data;
       for (let item of this.items){
         item.display = false;
       }
     })
     .catch(err => {
-      console.log(err);
+      this.item_error = [err];
     });
   }
 
@@ -51,10 +55,14 @@ export class BrowseComponent implements OnInit {
   destroyItem(id: string, idx) {
     return this._itemService.destroyItem(id)
     .then(item => {
-      this.items.splice(idx, 1);
+      if (item.message) {
+        this.destroy_error = [item.message];
+      } else {
+        this.items.splice(idx, 1);
+      }
     })
     .catch(err => {
-      console.log(err);
+      this.destroy_error = [err];
     });
   }
 
@@ -62,6 +70,5 @@ export class BrowseComponent implements OnInit {
     this._userService.logout();
     this._router.navigateByUrl('/');
   }
-
 
 }
