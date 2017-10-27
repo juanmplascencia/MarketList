@@ -5,6 +5,7 @@
       <a [routerLink]="['/']" (click)="logout()" class="inline">Log Off</a>
   </div>
 </div>
+<span *ngFor="let error of item_error">{{ error }}</span>
 <div *ngFor="let item of items; let idx = index" class="form-style-5">
   <p>Title: 
     {{ item.title }}</p>
@@ -14,6 +15,7 @@
     ${{ item.price }}</p>
   <p>Location: 
     {{ item.location }}</p>
+  <span *ngFor="let error of destroy_error">{{ error }}</span>
   <input type="submit" value="Delete" *ngIf="item.user._id == currentUser._id" (click)="destroyItem(item._id, idx)">
   <input type="submit" value="Contact" *ngIf="item.user._id != currentUser._id" (click)="alertUserInfo(idx)">
   <div *ngIf="item.display">
