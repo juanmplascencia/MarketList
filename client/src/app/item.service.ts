@@ -30,4 +30,12 @@ export class ItemService {
     .map(data => data.json())
     .toPromise();
   }
+
+  textItem(id) {
+    console.log(id);
+    return this._http.get(`/items/${id}/text`)
+    .map(data => data.json())
+    .toPromise();
+  }
+
 }
