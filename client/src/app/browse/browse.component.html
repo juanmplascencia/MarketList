@@ -3,6 +3,7 @@
     <a [routerLink]="['/my_listings']">My Listings</a>
     <a [routerLink]="['/']" (click)="logout()" class="inline">Log Off</a>
 </div>
+<span *ngFor="let error of item_error">{{ error }}</span>
 <div *ngFor="let item of items; let idx = index">
   <p>Title: 
     {{ item.title }}</p>
@@ -12,6 +13,8 @@
     {{ item.price }}</p>
   <p>Location: 
     {{ item.location }}</p>
+  
+  <span *ngFor="let error of destroy_error">{{ error }}</span>
   <button *ngIf="item.user._id == currentUser._id" (click)="destroyItem(item._id, idx)">Delete</button>
   <button *ngIf="item.user._id != currentUser._id" (click)="alertUserInfo(idx)">Contact</button>
   <div *ngIf="item.display">

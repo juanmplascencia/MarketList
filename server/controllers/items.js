@@ -42,7 +42,7 @@ module.exports = {
     destroy: function(req, res){
         Item.findByIdAndRemove(req.params.id, function(err, item){
             if(err){
-                return res.json(err);
+                return res.json({message:"Error when deleting item"});
             }
             return res.json(item);
         })

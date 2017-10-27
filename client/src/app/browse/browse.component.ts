@@ -13,6 +13,8 @@ export class BrowseComponent implements OnInit {
 
   items: any[] = [];
   currentUser = {};
+  item_error = [];
+  destroy_error = [];
 
   constructor(
     private _itemService: ItemService,
@@ -22,21 +24,18 @@ export class BrowseComponent implements OnInit {
     this.getItems();
    }
 
-  ngOnInit() {
-    console.log(this.items);
-  }
+  ngOnInit() { }
 
   getItems() {
     return this._itemService.getItems()
     .then(data => {
-      console.log(data);
       this.items = data;
       for (let item of this.items){
         item.display = false;
       }
     })
     .catch(err => {
-      console.log(err);
+      this.item_error = [err];
     });
   }
 
@@ -51,10 +50,15 @@ export class BrowseComponent implements OnInit {
   destroyItem(id: string, idx) {
     return this._itemService.destroyItem(id)
     .then(item => {
-      this.items.splice(idx, 1);
+      if(item.message){
+        this.destroy_error = [item.message];
+      }
+      else{
+        this.items.splice(idx, 1);
+      }
     })
     .catch(err => {
-      console.log(err);
+      this.destroy_error = [err];
     });
   }
 
