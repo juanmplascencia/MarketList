@@ -26,6 +26,11 @@
         <input type="number" min="1" name="price" [(ngModel)]="newItem.price">
       </p>
     </div>
+    <div>
+      <p>Image Url 
+        <input type="text" name="url" [(ngModel)]="newItem.url">
+      </p>
+    </div>
     <input type="submit" value="Submit">
   </form>
 </div>
@@ -44,13 +49,18 @@
         </p>
       </div>
       <div>
+        <p>Location
+        <input type="text" name="location" [(ngModel)]="item.location">
+        </p>
+      </div>
+      <div>
         <p>Price
         <input type="number" min="1" name="price" [(ngModel)]="item.price">
         </p>
       </div>
       <div>
-        <p>Location
-        <input type="text" name="location" [(ngModel)]="item.location">
+        <p>Image url
+        <input type="text" name="url" [(ngModel)]="item.url">
         </p>
       </div>
       <input type="submit" value="Update">
