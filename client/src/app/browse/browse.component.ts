@@ -58,6 +58,18 @@ export class BrowseComponent implements OnInit {
     });
   }
 
+  textUserInfo(id: string) {
+    return this._itemService.textItem(id)
+    .then(
+       err => {
+        console.log(err);
+      }
+    )
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   logout() {
     this._userService.logout();
     this._router.navigateByUrl('/');

@@ -25,6 +25,8 @@ module.exports = function(app) {
     app.patch('/items/:id', Items.update);
     //route to destroy an item
     app.delete('/items/:id', Items.destroy);
+    //route to text
+    app.get('/items/:id/text', Items.text);
 
     app.all("*", (req,res, next) => {
         res.sendFile(path.resolve("./client/dist/index.html"));

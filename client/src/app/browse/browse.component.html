@@ -15,7 +15,8 @@
   <p>Location: 
     {{ item.location }}</p>
   <input type="submit" value="Delete" *ngIf="item.user._id == currentUser._id" (click)="destroyItem(item._id, idx)">
-  <input type="submit" value="Contact" *ngIf="item.user._id != currentUser._id" (click)="alertUserInfo(idx)">
+  <input type="submit" value="Email me" *ngIf="item.user._id != currentUser._id" (click)="alertUserInfo(idx)">
+  <input type="submit" value="Text me" *ngIf="item.user._id != currentUser._id" (click)="textUserInfo(item.user.phone)">
   <div *ngIf="item.display">
     <h4>{{ item.user.first_name }}</h4>
     <h4>{{ item.user.email }}</h4>
