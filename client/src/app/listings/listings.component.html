@@ -8,22 +8,34 @@
   <form (submit)="createItem(newItem)" #itemForm="ngForm">
     <div>
       <p>Title
-      <input type="text" name="title" [(ngModel)]="newItem.title">
+        <input type="text" name="title" [(ngModel)]="newItem.title" required #title="ngModel">
+        <span *ngIf="title.invalid && (title.dirty || title.touched)">
+          <span *ngIf="title.errors.required">Title is required.</span>
+        </span>
       </p>
     </div>
     <div>
       <p>Description
-      <input type="text" name="description" [(ngModel)]="newItem.description">
+      <input type="text" name="description" [(ngModel)]="newItem.description" required #desc="ngModel">
+      <span *ngIf="desc.invalid && (desc.dirty || desc.touched)">
+        <span *ngIf="desc.errors.required">Description is required.</span>
+      </span>
       </p>
     </div>
     <div>
       <p>Location
-      <input type="text" name="location" [(ngModel)]="newItem.location">
+      <input type="text" name="location" [(ngModel)]="newItem.location" required #loc="ngModel">
+      <span *ngIf="loc.invalid && (loc.dirty || loc.touched)">
+        <span *ngIf="loc.errors.required">Location is required.</span>
+      </span>
       </p>
     </div>
     <div>
       <p>Price $
-        <input type="number" min="1" name="price" [(ngModel)]="newItem.price">
+        <input type="number" min="1" name="price" [(ngModel)]="newItem.price" required #price="ngModel">
+        <span *ngIf="price.invalid && (price.dirty || price.touched)">
+          <span *ngIf="price.errors.required">Price is required.</span>
+        </span>
       </p>
     </div>
     <div>
@@ -31,7 +43,7 @@
         <input type="text" name="url" [(ngModel)]="newItem.url">
       </p>
     </div>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" [disabled] = "itemForm.invalid"> 
   </form>
 </div>
 <div class="form-style-5">
